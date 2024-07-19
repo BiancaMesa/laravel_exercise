@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Arr;
 
 //We are declaring a route that listens to a get request that is visiting a URL in the browser, in this case, the homepage 
 //When you visit the homepage '/', the run this function. And the function returns a view called 'welcome', welcome is a file.
@@ -40,11 +41,47 @@ Route::get('/contact', function () {
 });
 
 Route::get('/jobs/{id}', function ($id) {
-    dd($id);
-    return view('contact');
+    $jobs = [
+        [
+            'id' => 1,
+            'title' => 'Director', 
+            'salary' => '$50,000'
+        ], 
+        [
+            'id' => 2,
+            'title' => 'Programmer', 
+            'salary' => '$10,000'
+        ],
+        [
+            'id' => 3,
+            'title' => 'Teacher', 
+            'salary' => '$40,000'
+        ]
+        ];
+
+        //Helper Array, method first. We use this method when we want to find the first item within an array that matches some kind of criteria. 
+        //The first argument is the array and the second one is a callback function that will be called for each item within the array. 
+        //The method will loop over the jobs and for each item it will pass that into the function.
+        //It returns a boolean 
+
+        // **** Option 1 ****
+        // \Illuminate\Support\Arr::first($jobs, function($job) use ($id)) {
+        //     return $job['id'] = $id;
+        // });
+
+        // **** Option 2 ****
+        //We look for the job that has the same matching id as the url
+        $job = Arr::first($jobs, fn($job) => $job['id'] = $id);
+
+        // dd($job);
+
+    //Once we find the matching id, we load a view. 
+    return view('job', ['job' => $job]);
 });
 
 //To create an API
 // Route::get('/about', function () {
 //     return ['foo'=> 'bar'];
-// });
+// }); 
+
+

@@ -7,8 +7,9 @@
         <!-- Loop directive -->
         @foreach ($jobs as $job)
             <li>
-                <a href="/jobs/"></a>
-                <strong>{{ $job['title'] }}</strong>: Pays {{ $job['salary'] }} per year.
+                <a href="/jobs/{{ $job['id']}}" class="text-blue-400 hover:underline">
+                    <strong>{{ $job['title'] }}</strong>: Pays {{ $job['salary'] }} per year.
+                </a>
             </li>
         @endforeach
     </ul>
