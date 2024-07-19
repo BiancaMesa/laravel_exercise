@@ -32,7 +32,16 @@ class Job {
 
     //We create another method called find because we want this function to find something within the class. 
     //In this case, we want it to find the job with the given id.
-    public static function find(int $id): array {
-        return Arr::first(static::all(), fn($job) => $job['id'] = $id);
+    public static function find(int $id): array
+    {
+        $job = Arr::first(static::all(), fn($job) => $job['id'] = $id);
+
+        if(! $job) {
+            //helper function called abort where we can include a status code as the first argument
+            abort(404);
+        }
+
+        return $job; 
+
     }
 }
