@@ -4,35 +4,43 @@ use Illuminate\Support\Facades\Route;
 
 //We are declaring a route that listens to a get request that is visiting a URL in the browser, in this case, the homepage 
 //When you visit the homepage '/', the run this function. And the function returns a view called 'welcome', welcome is a file.
-//View is a function with argument 'home'. 
-//We can pass a second argument that will be an array and each key will be extracted into a variable once the view is loaded. 
-//When we load our view, we will have access to a jobs variable that is equal to a list of jobs which is an array 
+//View is a function with argument 'home'.  
 Route::get('/', function () {
-    return view('home', [
-        'greeting' => 'Hello', //variable $greeting
-        'name' => 'Lary Robot', //variable $name
+    return view('home');
+});
+
+
+//The first argument is the view jobs and the second argument is the array whose key is jobs and value an array.
+//We can pass a second argument that will be an array and each key will be extracted into a variable once the view is loaded. 
+//When we load our view, we will have access to a jobs variable that is equal to a list of jobs which is an array
+Route::get('/jobs', function () {
+    return view('jobs', [
         'jobs' => [
             [
+                'id' => 1,
                 'title' => 'Director', 
                 'salary' => '$50,000'
             ], 
             [
+                'id' => 2,
                 'title' => 'Programmer', 
                 'salary' => '$10,000'
             ],
             [
+                'id' => 3,
                 'title' => 'Teacher', 
                 'salary' => '$40,000'
             ]
-        ] //each job has its own array 
+        ] //variable $jobs. With an array as value and each job has its own array 
     ]);
 });
 
-Route::get('/about', function () {
-    return view('about');
+Route::get('/contact', function () {
+    return view('contact');
 });
 
-Route::get('/contact', function () {
+Route::get('/jobs/{id}', function ($id) {
+    dd($id);
     return view('contact');
 });
 
