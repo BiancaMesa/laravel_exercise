@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Arr;
 use App\Models\Job;
 
 
@@ -21,22 +20,7 @@ Route::get('/jobs', function () {
 });
 
 Route::get('/jobs/{id}', function ($id) {
-    
-        //Helper Array, method first. We use this method when we want to find the first item within an array that matches some kind of criteria. 
-        //The first argument is the array and the second one is a callback function that will be called for each item within the array. 
-        //The method will loop over the jobs and for each item it will pass that into the function.
-        //It returns a boolean 
-
-        // **** Option 1 ****
-        // \Illuminate\Support\Arr::first($jobs, function($job) use ($id)) {
-        //     return $job['id'] = $id;
-        // });
-
-        // **** Option 2 ****
-        //We look for the job that has the same matching id as the url
-        $job = Arr::first(Job::all(), fn($job) => $job['id'] = $id);
-
-        // dd($job);
+        $job = Job::find($id); //we have a class named Job that has a function that is going to find the job for the given id 
 
     //Once we find the matching id, we load a view. 
     return view('job', ['job' => $job]);
