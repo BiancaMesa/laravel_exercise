@@ -20,7 +20,7 @@ Route::get('/jobs', function () {
 });
 
 Route::get('/jobs/{id}', function ($id) {
-        $job = Job::find($id); //we have a class named Job that has a function that is going to find the job for the given id 
+    $job = Job::find($id); //we have a class named Job that has a function that is going to find the job for the given id 
 
     //Once we find the matching id, we load a view. 
     return view('job', ['job' => $job]);
